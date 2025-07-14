@@ -1,0 +1,115 @@
+:root {
+  --custom-blue-dark: #2E3A8F;
+  --custom-blue-light: #E8F0FE;
+  --custom-orange: #FF7F50;
+  --custom-red-text: #E53E3E;
+  --custom-gray-text: #4A5568;
+  --custom-gray-light: #F7FAFC;
+}
+
+.container {
+  display: flex;
+  padding: 2rem;
+  background-color: var(--custom-gray-light);
+  min-height: 100vh;
+  gap: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.videoSection {
+  flex: 7;
+}
+
+.liveBadge {
+  background-color: var(--custom-red-text);
+  color: white;
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.videoCard {
+  background: var(--custom-blue-light);
+  border-radius: 16px;
+  padding: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 12px;
+}
+
+.chatSection {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  max-height: 90vh;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chatTitle {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--custom-blue-dark);
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: var(--custom-blue-light);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background-color: var(--custom-orange);
+  border-radius: 50%;
+}
+
+.inputArea {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.inputBox {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+.sendBtn {
+  background: var(--custom-orange);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+}

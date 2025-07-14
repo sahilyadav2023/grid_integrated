@@ -1,0 +1,28 @@
+.rewards-container {
+  padding: 2rem;
+  background-color: #f7fafc;
+}
+
+.reward-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.reward-card {
+  background: #e8f0fe;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  width: 200px;
+}
+
+.reward-card button {
+  background: #ff7f50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
