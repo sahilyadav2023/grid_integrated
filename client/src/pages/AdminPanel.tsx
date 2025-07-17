@@ -11,9 +11,9 @@ export default function AdminPanel() {
   const handleStartSession = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/session/start", {
+      await axios.post("http://localhost:5000/api/live-session/start", {
         title,
-        videoUrl,
+        video_url: videoUrl, // ✅ field name corrected
       });
       alert("Live session started!");
       setTitle("");

@@ -2,8 +2,10 @@ import express, { Application } from "express";
 import http from "http";
 import cors from "cors";
 import { Server } from "socket.io";
-import sessionRoutes from "./routes/sessionRoutes";
+
 import sequelize from "./db"; // PostgreSQL Sequelize instance
+import upcomingSessionRoutes from './routes/upcomingSession';
+import sessionRoutes from './routes/sessionRoutes'; 
 
 const app: Application = express();
 const server = http.createServer(app);
@@ -20,8 +22,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/session", sessionRoutes);
-import upcomingSessionRoutes from "./routes/upcomingSession";
+app.use('/api/live-session', sessionRoutes);
+
 app.use("/api/upcoming-session", upcomingSessionRoutes);
 
 

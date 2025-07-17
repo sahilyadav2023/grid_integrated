@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 
 interface Session {
   title: string;
-  videoUrl: string;
+  video_url: string; // 🔄 update to match Supabase field
 }
 
 interface ChatMessage {
@@ -24,7 +24,7 @@ export default function LiveSession() {
   useEffect(() => {
     const fetchLiveSession = async () => {
       try {
-        const res = await axios.get<Session>("http://localhost:5000/api/session/live");
+        const res = await axios.get<Session>("http://localhost:5000/api/live-session/live");
         setSession(res.data);
       } catch {
         setError("No active session at the moment.");
@@ -87,7 +87,7 @@ export default function LiveSession() {
             <div className="w-full overflow-hidden rounded-lg shadow-lg aspect-video">
               <iframe
                 className="w-full h-full"
-                src={getEmbedUrl(session.videoUrl)}
+                src={getEmbedUrl(session.video_url)} // 🔄 match field name
                 title="Live Video"
                 frameBorder="0"
                 allow="autoplay; encrypted-media"

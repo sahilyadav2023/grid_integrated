@@ -1,54 +1,46 @@
-import express, { Request, Response } from "express";
-import UpcomingSession from "../models/UpcomingSession";
+import express, { Request, Response } from 'express';
+import supabase from '../supabaseClient';
 
 const router = express.Router();
 
-// GET upcoming session
-router.get("/", async (_req: Request, res: Response) => {
-  try {
-    const session = await UpcomingSession.findOne({
-      order: [["scheduled_at", "ASC"]],
-    });
-    res.json(session || {});
-  } catch (err) {
-    console.error("GET upcoming-session error:", err);
-    res.status(500).json({ error: "Server error" });
-  }
+// GET: fetch next upcoming session
+router.get('/', async (_req: Request, res: Response) => {
+  const { data, error } = await supabase
+    .from('upcoming_session')
+    .select('*')
+    .order('scheduled_at', { ascending: true })
+    .limit(1);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data?.[0] || {});
 });
 
-// POST new session (replaces existing)
-router.post("/", async (req: Request, res: Response) => {
+// POST: create new upcoming session
+router.post('/', async (req: Request, res: Response) => {
   const { title, speaker, scheduled_at } = req.body;
 
-  try {
-    await UpcomingSession.destroy({ where: {} }); // clear old
-    const session = await UpcomingSession.create({
-      title,
-      speaker,
-      scheduled_at,
-    });
-    res.json(session);
-  } catch (err) {
-    console.error("POST upcoming-session error:", err);
-    res.status(500).json({ error: "Server error" });
-  }
+  const { data, error } = await supabase
+    .from('upcoming_session')
+    .insert([{ title, speaker, scheduled_at }])
+    .select();
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.status(201).json(data?.[0]);
 });
-// PUT: update session by ID
-router.put("/:id", async (req: Request, res: Response) => {
+
+// PUT: update existing upcoming session
+router.put('/:id', async (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
   const { title, speaker, scheduled_at } = req.body;
 
-  try {
-    const updated = await UpcomingSession.update(
-      { title, speaker, scheduled_at },
-      { where: { id } }
-    );
-    res.json({ updated });
-  } catch (err) {
-    console.error("PUT upcoming-session error:", err);
-    res.status(500).json({ error: "Update failed" });
-  }
-});
+  const { data, error } = await supabase
+    .from('upcoming_session')
+    .update({ title, speaker, scheduled_at })
+    .eq('id', id)
+    .select();
 
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data?.[0]);
+});
 
 export default router;
